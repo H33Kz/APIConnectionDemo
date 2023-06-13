@@ -103,7 +103,8 @@ public class CommandLinePrompter {
         System.out.println("Choose option:\n" +
                 "1. Save as JSON(default)\n" +
                 "2. Save as CSV\n" +
-                "3. Exit\n");
+                "3. Save as XML\n" +
+                "4. Exit\n");
 
         int chosen = 1;
         try {
@@ -112,12 +113,15 @@ public class CommandLinePrompter {
             System.out.println("Wrong input. Resorting to default value");
         }
         scanner.nextLine(); // Consumes \n - needed because nextInt() doesn't, which messes with next input
+
         System.out.println("Enter file name: \n");
         String filename = scanner.nextLine();
+
         switch (chosen) {
             case 1 -> fileSaveHandler.saveToJsonFile(filename, response.body());
             case 2 -> fileSaveHandler.saveToCsvFile(filename, response.body());
-            case 3 -> System.out.println();
+            case 3 -> fileSaveHandler.saveToXmlFile(filename, response.body());
+            case 4 -> System.out.println();
             default -> System.out.println("Wrong input");
         }
         return;

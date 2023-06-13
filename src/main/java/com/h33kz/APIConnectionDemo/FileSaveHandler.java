@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.thoughtworks.xstream.XStream;
 
 public class FileSaveHandler {
     private Gson gson;
@@ -18,7 +19,7 @@ public class FileSaveHandler {
 
     public void saveToJsonFile(String filename, String responseBody) {
         try {
-            FileWriter fileWriter = new FileWriter(filename + ".json");
+            FileWriter fileWriter = new FileWriter("./test/" + filename + ".json");
             fileWriter.write(responseBody);
             fileWriter.close();
             System.out.println("JSON file saved\n\n");
@@ -29,7 +30,7 @@ public class FileSaveHandler {
 
     public void saveToCsvFile(String filename, String responseBody) {
         try {
-            FileWriter fileWriter = new FileWriter(filename + ".csv");
+            FileWriter fileWriter = new FileWriter("./test/" + filename + ".csv");
 
             // Using gson library to convert json string acquired from API to list of
             // POJO's(University class) created before
@@ -42,6 +43,25 @@ public class FileSaveHandler {
             fileWriter.close();
             System.out.println("CSV file saved\n\n");
         } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void saveToXmlFile(String filename, String responseBody) {
+        try {
+            FileWriter fileWriter = new FileWriter("./test/" + filename + ".xml");
+            // Using gson library to convert json string acquired from API to list of
+            // POJO's(University class) created before
+            ArrayList<University> universities = gson.fromJson(responseBody, new TypeToken<ArrayList<University>>() {
+            }.getType());
+
+            XStream xStream = new XStream();
+            xStream.alias("universities", ArrayList.class);
+            fileWriter.write(xStream.toXML(universities));
+
+            fileWriter.close();
+            System.out.println("XML file saved\n\n");
+        } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
