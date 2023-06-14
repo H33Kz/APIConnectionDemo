@@ -4,18 +4,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.thoughtworks.xstream.XStream;
 
 public class FileSaveHandler {
-    private Gson gson;
-
-    public FileSaveHandler(Gson gson) {
-        this.gson = gson;
-    }
 
     public void saveToJsonFile(String filename, String responseBody) {
         try {
@@ -28,15 +21,9 @@ public class FileSaveHandler {
         }
     }
 
-    public void saveToCsvFile(String filename, String responseBody) {
+    public void saveToCsvFile(String filename, ArrayList<University> universities) {
         try {
             FileWriter fileWriter = new FileWriter("./test/" + filename + ".csv");
-
-            // Using gson library to convert json string acquired from API to list of
-            // POJO's(University class) created before
-            ArrayList<University> universities = gson.fromJson(responseBody, new TypeToken<ArrayList<University>>() {
-            }.getType());
-
             // Using opencsv library to save list of objects as csv file
             StatefulBeanToCsv<University> beanToCsv = new StatefulBeanToCsvBuilder<University>(fileWriter).build();
             beanToCsv.write(universities);
@@ -47,18 +34,12 @@ public class FileSaveHandler {
         }
     }
 
-    public void saveToXmlFile(String filename, String responseBody) {
+    public void saveToXmlFile(String filename, ArrayList<University> universities) {
         try {
             FileWriter fileWriter = new FileWriter("./test/" + filename + ".xml");
-            // Using gson library to convert json string acquired from API to list of
-            // POJO's(University class) created before
-            ArrayList<University> universities = gson.fromJson(responseBody, new TypeToken<ArrayList<University>>() {
-            }.getType());
-
             XStream xStream = new XStream();
             xStream.alias("universities", ArrayList.class);
             fileWriter.write(xStream.toXML(universities));
-
             fileWriter.close();
             System.out.println("XML file saved\n\n");
         } catch (IOException e) {

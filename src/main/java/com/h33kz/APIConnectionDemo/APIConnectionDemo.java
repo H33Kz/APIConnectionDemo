@@ -20,8 +20,8 @@ public class APIConnectionDemo implements CommandLineRunner {
 		Gson gson = new Gson();
 		Scanner scanner = new Scanner(System.in);
 		RequestHandler requestHandler = new RequestHandler();
-		FileSaveHandler fileSaveHandler = new FileSaveHandler(gson);
-		CommandLinePrompter menus = new CommandLinePrompter(scanner, requestHandler, fileSaveHandler);
+		FileSaveHandler fileSaveHandler = new FileSaveHandler();
+		CommandLinePrompter menus = new CommandLinePrompter(scanner, requestHandler, fileSaveHandler, gson);
 
 		menus.appLoop();
 

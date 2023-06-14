@@ -1,18 +1,26 @@
 package com.h33kz.APIConnectionDemo;
 
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class CommandLinePrompter {
     private Scanner scanner;
     private RequestHandler requestHandler;
     private HttpResponse<String> response;
     private FileSaveHandler fileSaveHandler;
+    private Gson gson;
+    private ArrayList<University> universities;
 
-    public CommandLinePrompter(Scanner scanner, RequestHandler requestHandler, FileSaveHandler fileSaveHandler) {
+    public CommandLinePrompter(Scanner scanner, RequestHandler requestHandler, FileSaveHandler fileSaveHandler,
+            Gson gson) {
         this.scanner = scanner;
         this.requestHandler = requestHandler;
         this.fileSaveHandler = fileSaveHandler;
+        this.gson = gson;
     }
 
     public void appLoop() throws Exception {
@@ -96,6 +104,8 @@ public class CommandLinePrompter {
 
         requestHandler.createRequest("http://universities.hipolabs.com/search?", filter);
         response = requestHandler.sendRequest();
+        universities = gson.fromJson(response.body(), new TypeToken<ArrayList<University>>() {
+        }.getType());
         return;
     }
 
@@ -119,8 +129,8 @@ public class CommandLinePrompter {
 
         switch (chosen) {
             case 1 -> fileSaveHandler.saveToJsonFile(filename, response.body());
-            case 2 -> fileSaveHandler.saveToCsvFile(filename, response.body());
-            case 3 -> fileSaveHandler.saveToXmlFile(filename, response.body());
+            case 2 -> fileSaveHandler.saveToCsvFile(filename, universities);
+            case 3 -> fileSaveHandler.saveToXmlFile(filename, universities);
             case 4 -> System.out.println();
             default -> System.out.println("Wrong input");
         }
