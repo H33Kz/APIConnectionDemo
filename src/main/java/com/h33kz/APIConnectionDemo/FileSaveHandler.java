@@ -10,7 +10,7 @@ import com.thoughtworks.xstream.XStream;
 
 public class FileSaveHandler {
 
-    public void saveToJsonFile(String filename, String responseBody) {
+    public static void saveToJsonFile(String filename, String responseBody) {
         try {
             FileWriter fileWriter = new FileWriter("./test/" + filename + ".json");
             fileWriter.write(responseBody);
@@ -21,7 +21,7 @@ public class FileSaveHandler {
         }
     }
 
-    public void saveToCsvFile(String filename, ArrayList<University> universities) {
+    public static void saveToCsvFile(String filename, ArrayList<University> universities) {
         try {
             FileWriter fileWriter = new FileWriter("./test/" + filename + ".csv");
             // Using opencsv library to save list of objects as csv file
@@ -34,7 +34,7 @@ public class FileSaveHandler {
         }
     }
 
-    public void saveToXmlFile(String filename, ArrayList<University> universities) {
+    public static void saveToXmlFile(String filename, ArrayList<University> universities) {
         try {
             FileWriter fileWriter = new FileWriter("./test/" + filename + ".xml");
             XStream xStream = new XStream();

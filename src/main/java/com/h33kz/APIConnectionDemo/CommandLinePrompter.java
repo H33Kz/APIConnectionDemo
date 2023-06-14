@@ -11,15 +11,12 @@ public class CommandLinePrompter {
     private Scanner scanner;
     private RequestHandler requestHandler;
     private HttpResponse<String> response;
-    private FileSaveHandler fileSaveHandler;
     private Gson gson;
     private ArrayList<University> universities;
 
-    public CommandLinePrompter(Scanner scanner, RequestHandler requestHandler, FileSaveHandler fileSaveHandler,
-            Gson gson) {
+    public CommandLinePrompter(Scanner scanner, RequestHandler requestHandler, Gson gson) {
         this.scanner = scanner;
         this.requestHandler = requestHandler;
-        this.fileSaveHandler = fileSaveHandler;
         this.gson = gson;
     }
 
@@ -48,7 +45,7 @@ public class CommandLinePrompter {
                     if (response == null) {
                         System.out.println("Response body empty\n\n");
                     } else {
-                        System.out.println(response.body());
+                        dataShowPrompt();
                     }
                     break;
                 case 5:
@@ -128,11 +125,43 @@ public class CommandLinePrompter {
         String filename = scanner.nextLine();
 
         switch (chosen) {
-            case 1 -> fileSaveHandler.saveToJsonFile(filename, response.body());
-            case 2 -> fileSaveHandler.saveToCsvFile(filename, universities);
-            case 3 -> fileSaveHandler.saveToXmlFile(filename, universities);
+            case 1 -> FileSaveHandler.saveToJsonFile(filename, response.body());
+            case 2 -> FileSaveHandler.saveToCsvFile(filename, universities);
+            case 3 -> FileSaveHandler.saveToXmlFile(filename, universities);
             case 4 -> System.out.println();
             default -> System.out.println("Wrong input");
+        }
+        return;
+    }
+
+    private void dataShowPrompt() {
+        System.out.println("Choose option:\n" +
+                "1. Show as JSON(default)\n" +
+                "2. Show as POJO objects\n" +
+                "3. Exit\n");
+
+        int chosen = 1;
+        try {
+            chosen = scanner.nextInt();
+        } catch (Exception e) {
+            System.out.println("Wrong input. Resorting to default value");
+        }
+        scanner.nextLine();
+
+        switch (chosen) {
+            case 1:
+                System.out.println(response.body());
+                break;
+            case 2:
+                for (University university : universities) {
+                    System.out.println(university);
+                }
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Wrong input");
+                break;
         }
         return;
     }

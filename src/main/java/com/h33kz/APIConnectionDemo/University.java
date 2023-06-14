@@ -58,4 +58,10 @@ public class University {
         this.web_pages = web_pages;
     }
 
+    @Override
+    public String toString() {
+        return "[" + country + "," + alpha_two_code + "," + name + "," + state_province + "," + domains + ","
+                + web_pages + "]";
+    }
+
 }
