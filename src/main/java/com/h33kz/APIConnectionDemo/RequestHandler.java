@@ -18,7 +18,6 @@ public class RequestHandler {
     public void createRequest(String baseURI, String filterString) throws Exception {
         filterString = filterString.replace(' ', '+');
         String uriString = baseURI + filterString;
-        System.out.println(uriString);
         request = HttpRequest.newBuilder().uri(new URI(uriString)).GET().build();
     }
 

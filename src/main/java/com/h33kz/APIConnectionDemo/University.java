@@ -1,6 +1,7 @@
 package com.h33kz.APIConnectionDemo;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class University {
     private String country;
@@ -64,4 +65,14 @@ public class University {
                 + web_pages + "]";
     }
 
+    public static Comparator<University> sortByName = new Comparator<University>() {
+        public int compare(University u1, University u2) {
+            return u1.getName().compareTo(u2.getName());
+        }
+    };
+    public static Comparator<University> sortByDomain = new Comparator<University>() {
+        public int compare(University u1, University u2) {
+            return u1.getDomains().get(0).compareTo(u2.getDomains().get(0));
+        }
+    };
 }

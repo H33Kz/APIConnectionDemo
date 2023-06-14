@@ -2,6 +2,7 @@ package com.h33kz.APIConnectionDemo;
 
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -31,7 +32,7 @@ public class CommandLinePrompter {
                     if (response == null) {
                         System.out.println("Response body empty\n\n");
                     } else {
-                        // TODO Data manipulation routine
+                        dataManipPrompt();
                     }
                     break;
                 case 3:
@@ -58,7 +59,7 @@ public class CommandLinePrompter {
     private int mainMenuPrompt() {
         System.out.println("Choose option:\n" +
                 "1. API demo(default)\n" +
-                "2. Data manipulation\n" +
+                "2. Sorting tool\n" +
                 "3. Save data as file\n" +
                 "4. Show response\n" +
                 "5. Exit\n");
@@ -162,6 +163,29 @@ public class CommandLinePrompter {
             default:
                 System.out.println("Wrong input");
                 break;
+        }
+        return;
+    }
+
+    private void dataManipPrompt() {
+        System.out.println("Choose option:\n" +
+                "1. Sort by name(default)\n" +
+                "2. Sort by domains\n" +
+                "3. Exit\n");
+
+        int chosen = 1;
+        try {
+            chosen = scanner.nextInt();
+        } catch (Exception e) {
+            System.out.println("Wrong input. Resorting to default value");
+        }
+        scanner.nextLine(); // Consumes \n - needed because nextInt() doesn't, which messes with next input
+
+        switch (chosen) {
+            case 1 -> Collections.sort(universities, University.sortByName);
+            case 2 -> Collections.sort(universities, University.sortByDomain);
+            case 3 -> System.out.println();
+            default -> System.out.println("Wrong input");
         }
         return;
     }
