@@ -1,4 +1,4 @@
-package com.h33kz.APIConnectionDemo;
+package com.h33kz.APIConnectionDemo.io;
 
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.h33kz.APIConnectionDemo.connection.RequestHandler;
+import com.h33kz.APIConnectionDemo.model.University;
 
 public class CommandLinePrompter {
     private Scanner scanner;

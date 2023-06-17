@@ -1,4 +1,4 @@
-package com.h33kz.APIConnectionDemo;
+package com.h33kz.APIConnectionDemo.connection;
 
 import java.net.URI;
 import java.net.http.HttpClient;

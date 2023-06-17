@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.google.gson.Gson;
+import com.h33kz.APIConnectionDemo.connection.RequestHandler;
+import com.h33kz.APIConnectionDemo.io.CommandLinePrompter;
 
 @SpringBootApplication
 public class APIConnectionDemo implements CommandLineRunner {

@@ -1,9 +1,10 @@
-package com.h33kz.APIConnectionDemo;
+package com.h33kz.APIConnectionDemo.io;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.h33kz.APIConnectionDemo.model.University;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.thoughtworks.xstream.XStream;

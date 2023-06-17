@@ -1,4 +1,4 @@
-package com.h33kz.APIConnectionDemo;
+package com.h33kz.APIConnectionDemo.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
