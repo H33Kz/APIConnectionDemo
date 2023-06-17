@@ -13,7 +13,7 @@ public class FileSaveHandler {
 
     public static void saveToJsonFile(String filename, String responseBody) {
         try {
-            FileWriter fileWriter = new FileWriter("./test/" + filename + ".json");
+            FileWriter fileWriter = new FileWriter("./savedfiles/" + filename + ".json");
             fileWriter.write(responseBody);
             fileWriter.close();
             System.out.println("JSON file saved\n\n");
@@ -24,7 +24,7 @@ public class FileSaveHandler {
 
     public static void saveToCsvFile(String filename, ArrayList<University> universities) {
         try {
-            FileWriter fileWriter = new FileWriter("./test/" + filename + ".csv");
+            FileWriter fileWriter = new FileWriter("./savedfiles/" + filename + ".csv");
             // Using opencsv library to save list of objects as csv file
             StatefulBeanToCsv<University> beanToCsv = new StatefulBeanToCsvBuilder<University>(fileWriter).build();
             beanToCsv.write(universities);
@@ -37,7 +37,7 @@ public class FileSaveHandler {
 
     public static void saveToXmlFile(String filename, ArrayList<University> universities) {
         try {
-            FileWriter fileWriter = new FileWriter("./test/" + filename + ".xml");
+            FileWriter fileWriter = new FileWriter("./savedfiles/" + filename + ".xml");
             XStream xStream = new XStream();
             xStream.alias("universities", ArrayList.class);
             fileWriter.write(xStream.toXML(universities));
